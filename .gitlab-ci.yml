@@ -1,0 +1,22 @@
+image: golang:latest
+
+stages:
+  - build
+
+building:
+  stage: build
+  script:
+    - go get -u github.com/pepa65/becrypt
+    - GOOS=linux GOARCH=amd64 go build -ldflags="-s -w"
+    - GOOS=linux GOARCH=arm go build -ldflags="-s -w" -o becrypt_pi
+    - GOOS=freebsd GOARCH=amd64 go build -ldflags="-s -w" -o becrypt_bsd
+    - GOOS=darwin GOARCH=amd64 go build -ldflags="-s -w" -o becrypt_osx
+    - GOOS=windows GOARCH=amd64 go build -ldflags="-s -w" -o becrypt.exe
+  artifacts:
+    name: becrypt
+    paths:
+     - becrypt
+     - becrypt_pi
+     - becrypt_bsd
+     - becrypt_osx
+     - becrypt.exe
