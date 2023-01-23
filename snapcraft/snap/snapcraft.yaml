@@ -1,9 +1,9 @@
 name: becrypt
 base: core20
 version: 'v1.2.1'
-summary: becrypt CLI tool for generating and matching bcrypt hashes
+summary: becrypt - CLI tool for generating and matching bcrypt hashes
 description: |
- bcrypt-tool is a dandy CLI tool for generating and matching bcrypt hashes
+ becryptl is a CLI tool for generating and matching bcrypt hashes of a specified cost
 
 grade: stable
 confinement: strict
@@ -12,14 +12,14 @@ architectures:
 
 apps:
   bcrypt-tool:
-    command: bin/bcrypt-tool
+    command: bin/becrypt
 
 parts:
   bcrypt-tool:
     plugin: go
-    go-channel: 1.16/stable
-    source: https://github.com/shoenig/bcrypt-tool
+    go-channel: 1.19/stable
+    source: https://github.com/pepa65/becrypt
     source-type: git
-    source-tag: v1.1.1
+    source-tag: v1.2.1
     build-packages:
       - git

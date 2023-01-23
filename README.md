@@ -1,6 +1,7 @@
 # becrypt
-**CLI tool for generating and checking bcrypt hashes**
+**CLI tool for generating and matching bcrypt hashes**
 
+* Version: 1.2.1
 * License: [MIT](LICENSE) [![GitHub](https://img.shields.io/github/license/pepa65/becrypt.svg)](LICENSE)
 * Repo: `github.com/pepa65/becrypt`
 * Modified interface from `github.com/shoenig/bcrypt-tool`
@@ -9,6 +10,8 @@
 
 ## Usage
 ```
+becrypt v1.2.1 - CLI tool for generating and matching bcrypt hashes
+Usage:
 becrypt [<cost>] | <hash> | cost <hash>
     becrypt [<cost>]:     Generate a hash from the piped-in or entered password
                           (optional <cost>: 4..31, default: 10)
