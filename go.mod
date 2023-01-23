@@ -1,4 +1,4 @@
-module github.com/shoenig/bcrypt-tool
+module github.com/pepa65/becrypt
 
 go 1.19
 

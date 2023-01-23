@@ -1,7 +1,6 @@
 *~
 **/*.snap
 
-bcrypt-tool
-output/
+becrypt
 dist/
 .DS_Store

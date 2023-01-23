@@ -1,10 +1,10 @@
 .PHONY: build
 build: clean
-	CGO_ENABLED=0 go build -o output/bcrypt-tool
+	CGO_ENABLED=0 go build -o becrypt
 
 .PHONY: clean
 clean:
-	rm -f output/bcrypt-tool
+	rm -f becrypt
 
 .PHONY: test
 test:

@@ -1,88 +1,64 @@
-bcrypt-tool
-===========
+# becrypt
+**CLI tool for generating and checking bcrypt hashes**
 
-`bcrypt-tool` is a dandy CLI tool for generating and matching bcrypt hashes
+* License: [MIT](LICENSE) [![GitHub](https://img.shields.io/github/license/pepa65/becrypt.svg)](LICENSE)
+* Repo: `github.com/pepa65/becrypt`
+* Modified interface from `github.com/shoenig/bcrypt-tool`
+  - Shorter & simpler, and only a command for the least used option
+  - No password on the commandline (either piped-in or asked for interactively)
 
-[![GitHub](https://img.shields.io/github/license/shoenig/bcrypt-tool.svg)](LICENSE)
-
-# Project Overview
-
-Module `github.com/shoenig/bcrypt-tool` provides a simple command line tool.
-
-# Getting Started
-
-#### Install from Releases
-
-The `bcrypt-tool` tool is available from the [Releases](https://github.com/shoenig/bcrypt-tool/releases) page.
-
-It is pre-compiled for many operating systems and architectures including
-
-- Linux
-- Windows
-- MacOS
-- FreeBSD
-- OpenBSD
-- Plan9
-
-#### Install from SnapCraft
-
-[![Get it from the Snap Store](https://snapcraft.io/static/images/badges/en/snap-store-white.svg)](https://snapcraft.io/bcrypt-tool)
-
-The `bcrypt-tool` command can be installed as a snap
-```bash
-$ sudo snap install bcrypt-tool
+## Usage
+```
+becrypt [<cost>] | <hash> | cost <hash>
+    becrypt [<cost>]:     Generate a hash from the piped-in or entered password
+                          (optional <cost>: 4..31, default: 10)
+    becrypt <hash>:       Check the piped-in or entered password against <hash>
+    becrypt cost <hash>:  Display the cost of <hash>
 ```
 
-#### Build from source
-The `bcrypt-tool` command can be compiled by running
+## Install from Releases
+
+* The `becrypt` tool is available from the [Releases](https://github.com/pepa65/becrypt/releases) page.
+* Pre-compiled for:
+  - Linux
+  - Windows
+  - MacOS
+  - FreeBSD
+  - OpenBSD
+  - Plan9
+
+## Build from source with Go
 ```bash
-$ go get github.com/shoenig/bcrypt-tool
+go get github.com/pepa65/becrypt
 ```
 
-### Examples
+## Examples
+**Quote the password/hash! (Depending on your shell.)**
 
-#### Generate Hash from a Password
+### Generate Hash from a Password
 ```bash
-$ bcrypt-tool hash p4ssw0rd
-```
-    
-#### Generate Hash from a Password with Cost
-```bash
-$ bcrypt-tool hash p4ssw0rd 31
-```
-    
-#### Determine if Password matches Hash
-```bash
-$ bcrypt-tool match p4ssw0rd $2a$10$nWFwjoFo4zhyVosdYMb6XOxZqlVB9Bk0TzOvmuo16oIwMZJXkpanW
+becrypt  # A password will be asked for interactively
+
+printf 'p4ssw0rd' |becrypt
 ```
 
-note: depending on your shell, you may need to escape the $ characters
-
-#### Determine Cost of Hash
+### Generate Hash from a Password with given Cost
 ```bash
-$ bcrypt-tool cost $2a$10$nWFwjoFo4zhyVosdYMb6XOxZqlVB9Bk0TzOvmuo16oIwMZJXkpanW
-```
-    
-note: depending on your shell, you may need to escape the $ characters
+becrypt 31  # A password will be asked for interactively
 
-### Usage
-```bash
-bcrypt-tool [action] parameter ...
+printf 'p4ssw0rd' |becrypt 4
 ```
 
-#### Actions
+### Determine if Password matches Hash
+```bash
+# A password will be asked for interactively
+becrypt '$2a$10$nWFwjoFo4zhyVosdYMb6XOxZqlVB9Bk0TzOvmuo16oIwMZJXkpanW'
 
-- `hash  [password] <cost>` Use bcrypt to generate a hash given password and optional cost (4-31)
+printf 'p4ssw0rd' |becrypt '$2a$10$nWFwjoFo4zhyVosdYMb6XOxZqlVB9Bk0TzOvmuo16oIwMZJXkpanW'
+```
 
-- `match [password] [hash]` Use bcrypt to check if a password matches a hash
+### Determine Cost of Hash
+```bash
+becrypt cost '$2a$10$nWFwjoFo4zhyVosdYMb6XOxZqlVB9Bk0TzOvmuo16oIwMZJXkpanW'
+```
 
-- `cost  [hash]` Use bcrypt to determine the cost of a hash (4-31)
-
-# Contributing
-
-The `github.com/shoenig/bcrypt-tool` module is always improving with new features
-and error corrections. For contributing bug fixes and new features please file an issue.
-
-# License
-
-The `github.com/shoenig/bcrypt-tool` module is open source under the [MIT](LICENSE) license.

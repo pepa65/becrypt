@@ -1,7 +1,7 @@
-name: bcrypt-tool
+name: becrypt
 base: core20
-version: 'v1.1.1'
-summary: bcrypt-tool is a dandy CLI tool for generating and matching bcrypt hashes
+version: 'v1.2.1'
+summary: becrypt CLI tool for generating and matching bcrypt hashes
 description: |
  bcrypt-tool is a dandy CLI tool for generating and matching bcrypt hashes
 
