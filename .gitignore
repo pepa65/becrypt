@@ -4,3 +4,5 @@
 becrypt
 dist/
 .DS_Store
+
+dist/

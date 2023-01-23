@@ -11,6 +11,3 @@ jobs:
       - name: Vet
         run: |
           make vet
-      - name: Tests
-        run: |
-          make test

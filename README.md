@@ -1,8 +1,10 @@
 # becrypt
 **CLI tool for generating and matching bcrypt hashes**
 
+[![GitHub](https://img.shields.io/github/license/pepa65/becrypt.svg)](LICENSE)
+[![run-ci](https://github.com/pepa65/becrypt/actions/workflows/ci.yml/badge.svg)](https://github.com/pepa65/becrypt/actions/workflows/ci.yml) 
 * Version: 1.2.1
-* License: [MIT](LICENSE) [![GitHub](https://img.shields.io/github/license/pepa65/becrypt.svg)](LICENSE)
+* License: [MIT](LICENSE)
 * Repo: `github.com/pepa65/becrypt`
 * Modified interface from `github.com/shoenig/bcrypt-tool`
   - Shorter & simpler, and only a command for the least used option
@@ -23,12 +25,17 @@ becrypt [<cost>] | <hash> | cost <hash>
 
 * The `becrypt` tool is available from the [Releases](https://github.com/pepa65/becrypt/releases) page.
 * Pre-compiled for:
-  - Linux
-  - Windows
-  - MacOS
-  - FreeBSD
-  - OpenBSD
-  - Plan9
+  - Linux amd64: `becrypt`
+  - Linux arm: `becrypt_pi`
+  - Windows: `becrypt.exe`
+  - MacOS: `becrypt_osx`
+  - BSD: `becrypt_bsd`
+  - OSX amd64 arm64
+  - Linux amd64 386 arm64
+  - FreeBSD amd64 386 arm64
+  - Openbsd amd64 386 arm64
+  - Windows amd64 386 arm64
+  - Plan9 amd64 386
 
 ## Build from source with Go
 ```bash
