@@ -6,9 +6,10 @@
 * Version: 1.2.1
 * License: [MIT](LICENSE)
 * Repo: `github.com/pepa65/becrypt`
-* Modified interface from `github.com/shoenig/bcrypt-tool`
-  - Shorter & simpler, and only a command for the least used option
-  - No password on the commandline (either piped-in or asked for interactively)
+* Modified interface from `github.com/shoenig/bcrypt-tool`:
+  - Shorter & simpler, and only a command for the least used option.
+  - No password on the commandline (either piped-in or asked for interactively).
+  - Functionally compatible (both use `golang.org/x/crypto/bcrypt` under the hood).
 
 ## Usage
 ```
@@ -27,11 +28,6 @@ Usage:  becrypt [<cost>] | <hash> | cost <hash>
 
 * The `becrypt` tool is available from the [Releases](https://github.com/pepa65/becrypt/releases) page.
 * Pre-compiled for:
-  - Linux amd64: `becrypt`
-  - Linux arm: `becrypt_pi`
-  - Windows: `becrypt.exe`
-  - MacOS: `becrypt_osx`
-  - BSD: `becrypt_bsd`
   - OSX amd64 arm64
   - Linux amd64 386 arm64
   - FreeBSD amd64 386 arm64
