@@ -12,13 +12,15 @@
 
 ## Usage
 ```
-becrypt v1.2.1 - CLI tool for generating and matching bcrypt hashes
-Usage:
-becrypt [<cost>] | <hash> | cost <hash>
-    becrypt [<cost>]:     Generate a hash from the piped-in or entered password
+becrypt v1.2.1 - CLI tool for generating and checking bcrypt hashes
+Repo:   github.com/pepa65/becrypt
+Usage:  becrypt [<cost>] | <hash> | cost <hash>
+    becrypt [<cost>]:     Generate a hash from the password
                           (optional <cost>: 4..31, default: 10)
-    becrypt <hash>:       Check the piped-in or entered password against <hash>
+    becrypt <hash>:       Check the password against <hash>
     becrypt cost <hash>:  Display the cost of <hash>
+    becrypt help:         Display this help text
+  The password can be piped-in or prompted for, is cut off after 72 characters.
 ```
 
 ## Install from Releases

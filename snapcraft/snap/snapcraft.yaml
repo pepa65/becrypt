@@ -11,11 +11,11 @@ architectures:
   - build-on: amd64
 
 apps:
-  bcrypt-tool:
+  becrypt:
     command: bin/becrypt
 
 parts:
-  bcrypt-tool:
+  becrypt:
     plugin: go
     go-channel: 1.19/stable
     source: https://github.com/pepa65/becrypt
