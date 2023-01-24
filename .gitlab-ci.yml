@@ -12,7 +12,7 @@ building:
     - GOOS=freebsd GOARCH=amd64 go build -ldflags="-s -w" -o becrypt_bsd
     - GOOS=darwin GOARCH=amd64 go build -ldflags="-s -w" -o becrypt_osx
     - GOOS=windows GOARCH=amd64 go build -ldflags="-s -w" -o becrypt.exe
-    - strip becrypt becrypt_pi becrypt_bsd becrypt_osx becrypt.exe
+    - strip becrypt
   artifacts:
     name: becrypt
     paths:
