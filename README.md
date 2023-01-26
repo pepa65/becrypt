@@ -13,7 +13,7 @@
 
 ## Usage
 ```
-becrypt v1.2.1 - CLI tool for generating and checking bcrypt hashes
+becrypt v1.2.2 - CLI tool for generating and checking bcrypt hashes
 Repo:   github.com/pepa65/becrypt
 Usage:  becrypt [<cost>] | <hash> | cost|-c|--cost <hash> | help|-h|--help
     becrypt [<cost>]:               Generate a hash from the password
