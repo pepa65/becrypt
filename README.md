@@ -1,9 +1,9 @@
 # becrypt
-**CLI tool for generating and matching bcrypt hashes**
+**Generate and test bcrypt hashes from a CLI**
 
 [![GitHub](https://img.shields.io/github/license/pepa65/becrypt.svg)](LICENSE)
 [![run-ci](https://github.com/pepa65/becrypt/actions/workflows/ci.yml/badge.svg)](https://github.com/pepa65/becrypt/actions/workflows/ci.yml) 
-* Version: 1.2.2
+* Version: 1.2.3
 * License: [MIT](LICENSE)
 * Repo: `github.com/pepa65/becrypt`
 * Modified interface from `github.com/shoenig/bcrypt-tool`:
@@ -13,15 +13,15 @@
 
 ## Usage
 ```
-becrypt v1.2.2 - CLI tool for generating and checking bcrypt hashes
+becrypt v1.2.3 - Generate and test bcrypt hashes from a CLI
 Repo:   github.com/pepa65/becrypt
-Usage:  becrypt [<cost>] | <hash> | cost|-c|--cost <hash> | help|-h|--help
-    becrypt [<cost>]:               Generate a hash from the password
-                                    (optional <cost>: 4..31, default: 10)
-    becrypt <hash>:                 Check the password against <hash>
-    becrypt cost|-c|--cost <hash>:  Display the cost of <hash>
-    becrypt help|-h|--help:         Display this help text
-  The password can be piped-in or prompted for, is cut off after 72 characters.
+Usage:  becrypt HASH | TEST | COST | HELP
+ HASH:  [<cost>]:               Generate a hash from the password
+                                (optional <cost>: 4..31, default: 10)
+ TEST:  <hash>:                 Test the password against <hash>
+ COST:  cost|-c|--cost <hash>:  Display the cost of <hash>
+ HELP:  help|-h|--help:         Display this help text
+The password can be piped-in or prompted for, is cut off after 72 characters.
 ```
 
 ## Install from Releases
@@ -65,7 +65,7 @@ becrypt '$2a$10$nWFwjoFo4zhyVosdYMb6XOxZqlVB9Bk0TzOvmuo16oIwMZJXkpanW'
 printf 'p4ssw0rd' |becrypt '$2a$10$nWFwjoFo4zhyVosdYMb6XOxZqlVB9Bk0TzOvmuo16oIwMZJXkpanW'
 ```
 
-### Determine Cost of Hash
+### Determine processing Cost of Hash
 ```bash
 becrypt cost '$2a$10$nWFwjoFo4zhyVosdYMb6XOxZqlVB9Bk0TzOvmuo16oIwMZJXkpanW'
 ```

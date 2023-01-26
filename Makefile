@@ -5,6 +5,7 @@ build: clean
 .PHONY: clean
 clean:
 	rm -f becrypt
+	rm -rf dist
 
 .PHONY: vet
 vet:
