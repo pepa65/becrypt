@@ -3,7 +3,7 @@
 
 [![GitHub](https://img.shields.io/github/license/pepa65/becrypt.svg)](LICENSE)
 [![run-ci](https://github.com/pepa65/becrypt/actions/workflows/ci.yml/badge.svg)](https://github.com/pepa65/becrypt/actions/workflows/ci.yml) 
-* Version: 1.2.1
+* Version: 1.2.2
 * License: [MIT](LICENSE)
 * Repo: `github.com/pepa65/becrypt`
 * Modified interface from `github.com/shoenig/bcrypt-tool`:
@@ -15,12 +15,12 @@
 ```
 becrypt v1.2.1 - CLI tool for generating and checking bcrypt hashes
 Repo:   github.com/pepa65/becrypt
-Usage:  becrypt [<cost>] | <hash> | cost <hash>
-    becrypt [<cost>]:     Generate a hash from the password
-                          (optional <cost>: 4..31, default: 10)
-    becrypt <hash>:       Check the password against <hash>
-    becrypt cost <hash>:  Display the cost of <hash>
-    becrypt help:         Display this help text
+Usage:  becrypt [<cost>] | <hash> | cost|-c|--cost <hash> | help|-h|--help
+    becrypt [<cost>]:               Generate a hash from the password
+                                    (optional <cost>: 4..31, default: 10)
+    becrypt <hash>:                 Check the password against <hash>
+    becrypt cost|-c|--cost <hash>:  Display the cost of <hash>
+    becrypt help|-h|--help:         Display this help text
   The password can be piped-in or prompted for, is cut off after 72 characters.
 ```
 

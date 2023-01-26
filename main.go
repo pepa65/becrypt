@@ -13,7 +13,7 @@ import (
 )
 
 const (
-	version = "1.2.1"
+	version = "1.2.2"
 	pwMaxLen = 72
 )
 
@@ -21,14 +21,14 @@ var (
 	helptxt = ""
 	usage = ` - CLI tool for generating and checking bcrypt hashes
 Repo:   github.com/pepa65/becrypt
-Usage:  becrypt [<cost>] | <hash> | cost <hash>
-    becrypt [<cost>]:     Generate a hash from the password
-                          (optional <cost>: ` + strconv.Itoa(bcrypt.MinCost) +
-		".." + strconv.Itoa(bcrypt.MaxCost) + ", default: " +
-		strconv.Itoa(bcrypt.DefaultCost) + `)
-    becrypt <hash>:       Check the password against <hash>
-    becrypt cost <hash>:  Display the cost of <hash>
-    becrypt help:         Display this help text
+Usage:  becrypt [<cost>] | <hash> | cost|-c|--cost <hash> | help|-h|--help
+    becrypt [<cost>]:               Generate a hash from the password
+                                    (optional <cost>: ` +
+		strconv.Itoa(bcrypt.MinCost) + ".." + strconv.Itoa(bcrypt.MaxCost) +
+		", default: " + strconv.Itoa(bcrypt.DefaultCost) + `)
+    becrypt <hash>:                 Check the password against <hash>
+    becrypt cost|-c|--cost <hash>:  Display the cost of <hash>
+    becrypt help|-h|--help:         Display this help text
   The password can be piped-in or prompted for, is cut off after ` +
 		strconv.Itoa(pwMaxLen) + " characters."
 )
@@ -49,11 +49,11 @@ func main() { // I:self,version,usage
 			hash = arg
 			continue
 		}
-		if arg == "cost" && cmd == "" {
-			cmd = arg
+		if cmd == "" && (arg == "cost" || arg == "-c" || arg == "--cost") {
+			cmd = "cost"
 			continue
 		}
-		if arg == "help" {
+		if arg == "help" || arg == "-h" || arg == "--help" {
 			showHelp("")
 		}
 		if cmd == "" {
@@ -112,8 +112,7 @@ func doCheck(password, hash []byte) {
 }
 
 func getHash(password []byte, cost int) string {
-	hash, e := bcrypt.GenerateFromPassword(password[:72], cost)
-fmt.Println(password[:72])
+	hash, e := bcrypt.GenerateFromPassword(password, cost)
 	if e != nil {
 		fmt.Fprintln(os.Stderr, e)
 		os.Exit(4)
@@ -131,6 +130,9 @@ func getPassword() []byte {
 		pw, _ := term.ReadPassword(0)
 		fmt.Fprintf(os.Stderr, "\r               \r")
 		password = []byte(pw)
+	}
+	if len(password) > 72 {
+		password = password[:pwMaxLen]
 	}
 	return password
 }
