@@ -43,21 +43,27 @@ go get github.com/pepa65/becrypt
 ## Examples
 **Quote the password/hash! (Depending on your shell.)**
 
-### Generate Hash from a Password
+### HASH: Generate Hash from a Password
 ```bash
 becrypt  # A password will be asked for interactively
 
 printf 'p4ssw0rd' |becrypt
 ```
 
-### Generate Hash from a Password with given Cost
+The result of a HASH command is the hash on stdout, with a returncode of 0.
+
+### HASH: Generate Hash from a Password with given Cost
 ```bash
 becrypt 31  # A password will be asked for interactively
 
 printf 'p4ssw0rd' |becrypt 4
 ```
 
-### Determine if Password matches Hash
+The processing cost scales exponentially with 2^cost,
+so a cost increase of 1 doubles the processing time needed.
+So higher cost numbers will take a while!
+
+### TEST: Determine if Password matches Hash
 ```bash
 # A password will be asked for interactively
 becrypt '$2a$10$nWFwjoFo4zhyVosdYMb6XOxZqlVB9Bk0TzOvmuo16oIwMZJXkpanW'
@@ -65,8 +71,13 @@ becrypt '$2a$10$nWFwjoFo4zhyVosdYMb6XOxZqlVB9Bk0TzOvmuo16oIwMZJXkpanW'
 printf 'p4ssw0rd' |becrypt '$2a$10$nWFwjoFo4zhyVosdYMb6XOxZqlVB9Bk0TzOvmuo16oIwMZJXkpanW'
 ```
 
-### Determine processing Cost of Hash
+The result of a TEST command is a plaintext 'yes' or 'no' on stdout,
+with corresponding returncodes 0 and 1.
+
+### COST: Determine processing Cost of Hash
 ```bash
 becrypt cost '$2a$10$nWFwjoFo4zhyVosdYMb6XOxZqlVB9Bk0TzOvmuo16oIwMZJXkpanW'
 ```
 
+The result of a COST command is a plaintext 10-based number on stdout with returncode 0,
+unless the hash is malformed, then an error results for a returncode bigger than 0).
