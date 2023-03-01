@@ -1,4 +1,4 @@
-// becrypt - Generate and test bcrypt hashes from a CLI
+// becrypt - Generate and check bcrypt hashes from a CLI
 
 package main
 
@@ -14,7 +14,7 @@ import (
 )
 
 const (
-	version = "1.2.4"
+	version = "1.2.5"
 	pwMaxLen = 72
 )
 
@@ -23,17 +23,18 @@ var (
 )
 
 func showHelp(msg string) { // I:self,version,pwMaxLen
-	helptxt := self + " v" + version + ` - Generate and test bcrypt hashes from a CLI
+	helptxt := self + " v" + version + ` - Generate and check bcrypt hashes from the CLI
 Repo:   github.com/pepa65/becrypt
-Usage:  ` + self + ` HASH | TEST | COST | HELP
- HASH:  [<cost>]:               Generate a hash from the password
-                               (optional <cost>: ` +
+Usage:  ` + self + ` OPTION
+    Options:
+        help|-h|--help           Display this HELP text.
+        cost|-c|--cost <hash>    Display the COST of bcrypt <hash>.
+        <hash> [-q|--quiet]      CHECK the password against bcrypt <hash>.
+        [<cost>]                 Generate a HASH from the given password
+                                 (optional <cost>: ` +
     strconv.Itoa(bcrypt.MinCost) + ".." + strconv.Itoa(bcrypt.MaxCost) +
     ", default: " + strconv.Itoa(bcrypt.DefaultCost) + `)
- TEST:  <hash>:                 Test the password against <hash>
- COST:  cost|-c|--cost <hash>:  Display the cost of <hash>
- HELP:  help|-h|--help:         Display this help text
-The password can be piped-in or prompted for, is cut off after ` +
+The password can be piped-in or prompted for. It's cut off after ` +
     strconv.Itoa(pwMaxLen) + " characters."
 	fmt.Fprintln(os.Stderr, helptxt)
 	if msg != "" {
@@ -71,7 +72,7 @@ func main() { // IO:self
 				cmd, cost = "HASH", c
 				continue
 			}
-			cmd, hash = "TEST", arg
+			cmd, hash = "CHECK", arg
 		} else {
 			showHelp("Too many arguments")
 		}
@@ -79,7 +80,7 @@ func main() { // IO:self
 	if cmd == "" {
 		cmd = "HASH"
 	}
-	if hash != "" { // test hash
+	if hash != "" { // Check hash
 		hashpart := strings.Split(hash, "$")
 		switch true {
 		case len(hashpart) != 4:
@@ -114,8 +115,8 @@ func main() { // IO:self
 	switch cmd {
 	case "COST":
 		fmt.Printf("%d\n", getCost(hash))
-	case "TEST":
-		doTest(getPassword(), []byte(hash))
+	case "CHECK":
+		doCheck(getPassword(), []byte(hash))
 	case "HASH":
 		if cost < bcrypt.MinCost || cost > bcrypt.MaxCost {
 			showHelp("Argument for cost out of range")
@@ -133,7 +134,7 @@ func getCost(hash string) int {
 	return cost
 }
 
-func doTest(password, hash []byte) {
+func doCheck(password, hash []byte) {
 	if bcrypt.CompareHashAndPassword(hash, password) == nil {
 		fmt.Println("yes")
 	} else {

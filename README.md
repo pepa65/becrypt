@@ -1,9 +1,9 @@
 # becrypt
-**Generate and test bcrypt hashes from a CLI**
+**Generate and check bcrypt hashes from a CLI**
 
 [![GitHub](https://img.shields.io/github/license/pepa65/becrypt.svg)](LICENSE)
 [![run-ci](https://github.com/pepa65/becrypt/actions/workflows/ci.yml/badge.svg)](https://github.com/pepa65/becrypt/actions/workflows/ci.yml) 
-* Version: 1.2.4
+* Version: 1.2.5
 * License: [MIT](LICENSE)
 * Repo: `github.com/pepa65/becrypt`
 * Modified interface from `github.com/shoenig/bcrypt-tool`:
@@ -13,15 +13,16 @@
 
 ## Usage
 ```
-becrypt v1.2.4 - Generate and test bcrypt hashes from a CLI
+becrypt v1.2.5 - Generate and check bcrypt hashes from a CLI
 Repo:   github.com/pepa65/becrypt
-Usage:  becrypt HASH | TEST | COST | HELP
- HASH:  [<cost>]:               Generate a hash from the password
-                                (optional <cost>: 4..31, default: 10)
- TEST:  <hash>:                 Test the password against <hash>
- COST:  cost|-c|--cost <hash>:  Display the cost of <hash>
- HELP:  help|-h|--help:         Display this help text
-The password can be piped-in or prompted for, is cut off after 72 characters.
+Usage:  becrypt OPTION
+    Options:
+        help|-h|--help           Display this HELP text.
+        cost|-c|--cost <hash>    Display the COST of bcrypt <hash>.
+        <hash> [-q|--quiet]      CHECK the password against bcrypt <hash>.
+        [<cost>]                 Generate a HASH from the given password
+                                 (optional <cost>: 4..31, default: 10).
+The password can be piped-in or prompted for. It's cut off after 72 characters.
 ```
 
 ## Install from Releases
@@ -43,6 +44,26 @@ go get github.com/pepa65/becrypt
 ## Examples
 **Quote the password/hash! (Depending on your shell.)**
 
+### COST: Determine processing Cost of Hash
+```bash
+becrypt cost '$2a$10$nWFwjoFo4zhyVosdYMb6XOxZqlVB9Bk0TzOvmuo16oIwMZJXkpanW'
+```
+
+The result of a COST command is a plaintext 10-based number on stdout with returncode 0,
+unless the hash is malformed, then an error results for a returncode bigger than 0).
+
+### CHECK: Determine if Password matches Hash
+```bash
+# A password will be asked for interactively
+becrypt '$2a$10$nWFwjoFo4zhyVosdYMb6XOxZqlVB9Bk0TzOvmuo16oIwMZJXkpanW'
+
+printf 'p4ssw0rd' |becrypt '$2a$10$nWFwjoFo4zhyVosdYMb6XOxZqlVB9Bk0TzOvmuo16oIwMZJXkpanW'
+```
+
+The result of a CHECK command is a plaintext 'yes' or 'no' on stdout,
+with corresponding returncodes 0 and 1.
+If the `-q` or `--quiet` flag is given, no stdout is produced, only a returncode.
+
 ### HASH: Generate Hash from a Password
 ```bash
 becrypt  # A password will be asked for interactively
@@ -62,25 +83,6 @@ printf 'p4ssw0rd' |becrypt 4
 The processing cost scales exponentially with 2^cost,
 so a cost increase of 1 doubles the processing time needed.
 So higher cost numbers will take a while!
-
-### TEST: Determine if Password matches Hash
-```bash
-# A password will be asked for interactively
-becrypt '$2a$10$nWFwjoFo4zhyVosdYMb6XOxZqlVB9Bk0TzOvmuo16oIwMZJXkpanW'
-
-printf 'p4ssw0rd' |becrypt '$2a$10$nWFwjoFo4zhyVosdYMb6XOxZqlVB9Bk0TzOvmuo16oIwMZJXkpanW'
-```
-
-The result of a TEST command is a plaintext 'yes' or 'no' on stdout,
-with corresponding returncodes 0 and 1.
-
-### COST: Determine processing Cost of Hash
-```bash
-becrypt cost '$2a$10$nWFwjoFo4zhyVosdYMb6XOxZqlVB9Bk0TzOvmuo16oIwMZJXkpanW'
-```
-
-The result of a COST command is a plaintext 10-based number on stdout with returncode 0,
-unless the hash is malformed, then an error results for a returncode bigger than 0).
 
 ## Release management
 * Change version in `README.md` (2 places) and `main.go`.
