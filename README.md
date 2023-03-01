@@ -3,7 +3,7 @@
 
 [![GitHub](https://img.shields.io/github/license/pepa65/becrypt.svg)](LICENSE)
 [![run-ci](https://github.com/pepa65/becrypt/actions/workflows/ci.yml/badge.svg)](https://github.com/pepa65/becrypt/actions/workflows/ci.yml) 
-* Version: 1.2.3
+* Version: 1.2.4
 * License: [MIT](LICENSE)
 * Repo: `github.com/pepa65/becrypt`
 * Modified interface from `github.com/shoenig/bcrypt-tool`:
@@ -13,7 +13,7 @@
 
 ## Usage
 ```
-becrypt v1.2.3 - Generate and test bcrypt hashes from a CLI
+becrypt v1.2.4 - Generate and test bcrypt hashes from a CLI
 Repo:   github.com/pepa65/becrypt
 Usage:  becrypt HASH | TEST | COST | HELP
  HASH:  [<cost>]:               Generate a hash from the password
@@ -81,3 +81,10 @@ becrypt cost '$2a$10$nWFwjoFo4zhyVosdYMb6XOxZqlVB9Bk0TzOvmuo16oIwMZJXkpanW'
 
 The result of a COST command is a plaintext 10-based number on stdout with returncode 0,
 unless the hash is malformed, then an error results for a returncode bigger than 0).
+
+## Release management
+* Change version in `README.md` (2 places) and `main.go`.
+* Commit changes
+* Add tag: `git tag -a <tag>`
+* Push commit(s)
+* Do: `goreleaser --clean`
