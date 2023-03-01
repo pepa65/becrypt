@@ -4,5 +4,3 @@ updates:
     directory: "/"
     schedule:
       interval: "monthly"
-    labels:
-      - "theme/dependencies"
