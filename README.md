@@ -3,7 +3,7 @@
 
 [![GitHub](https://img.shields.io/github/license/pepa65/becrypt.svg)](LICENSE)
 [![run-ci](https://github.com/pepa65/becrypt/actions/workflows/ci.yml/badge.svg)](https://github.com/pepa65/becrypt/actions/workflows/ci.yml) 
-* Version: 1.2.5
+* Version: 1.2.6
 * License: [MIT](LICENSE)
 * Repo: `github.com/pepa65/becrypt`
 * Modified interface from `github.com/shoenig/bcrypt-tool`:
@@ -13,7 +13,7 @@
 
 ## Usage
 ```
-becrypt v1.2.5 - Generate and check bcrypt hashes from a CLI
+becrypt v1.2.6 - Generate and check bcrypt hashes from a CLI
 Repo:   github.com/pepa65/becrypt
 Usage:  becrypt OPTION
     Options:
