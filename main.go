@@ -14,7 +14,7 @@ import (
 )
 
 const (
-	version = "1.3.6"
+	version = "1.3.7"
 	pwMaxLen = 72
 )
 
@@ -55,7 +55,7 @@ func main() { // IO:self
 		}
 		if cmd == "COST" {
 			if hash != "" {
-				showHelp("Too many arguments for cost")
+				showHelp("Too many arguments for cost: "+arg)
 			}
 			hash = arg
 			continue
@@ -66,7 +66,7 @@ func main() { // IO:self
 				continue
 			}
 			if hash != "" {
-				showHelp("Hash already given, too many arguments")
+				showHelp("Hash already given, too many arguments: "+arg)
 			} else {
 				hash = arg
 				continue
@@ -91,7 +91,7 @@ func main() { // IO:self
 			}
 			cmd, hash = "CHECK", arg
 		} else {
-			showHelp("Too many arguments")
+			showHelp("Too many arguments: "+arg)
 		}
 	}
 	if cmd == "" {
@@ -101,42 +101,45 @@ func main() { // IO:self
 		hashpart := strings.Split(hash, "$")
 		switch true {
 		case len(hashpart) != 4:
-			fmt.Fprintln(os.Stderr, "Abort: Exactly 3 '$' in a bcrypt hash")
+			fmt.Fprintln(os.Stderr, "Abort: Exactly 3 '$' in a bcrypt hash, invalid hash: "+hash)
 			os.Exit(3)
 		case len(hashpart[0]) > 0:
-			fmt.Fprintln(os.Stderr, "Abort: A proper bcrypt hash starts with '$'")
+			fmt.Fprintln(os.Stderr, "Abort: A proper bcrypt hash starts with '$', invalid hash: "+hash)
 			os.Exit(4)
 		case len(hashpart[1]) == 0:
-			fmt.Fprintln(os.Stderr, "Abort: Missing crypt type (between the 1st & 2nd '$')")
+			fmt.Fprintln(os.Stderr, "Abort: Missing crypt type (between the 1st & 2nd '$'), invalid hash: "+hash)
 			os.Exit(5)
 		case hashpart[1][:1] != "2":
-			fmt.Fprintln(os.Stderr, "Abort: The crypt type (between the 1st & 2nd '$') for bcrypt starts with '2'")
+			fmt.Fprintln(os.Stderr, "Abort: The crypt type (between the 1st & 2nd '$') for bcrypt starts with '2', invalid hash: "+hash)
 			os.Exit(6)
 		case len(hashpart[1]) > 2:
-			fmt.Fprintln(os.Stderr, "Abort: The crypt type (between the 1st & 2nd '$') is 1 or 2 characters long")
+			fmt.Fprintln(os.Stderr, "Abort: The crypt type (between the 1st & 2nd '$') is 1 or 2 characters long, invalid hash: "+hash)
 			os.Exit(7)
 		case len(hashpart[2]) != 2:
-			fmt.Fprintln(os.Stderr, "Abort: The cost (between the 2nd & 3rd '$') must be 2 characters long")
+			fmt.Fprintln(os.Stderr, "Abort: The cost (between the 2nd & 3rd '$') must be 2 characters long, invalid hash: "+hash)
 			os.Exit(8)
 		case hashpart[2][0] < '0' || hashpart[2][0] > '3' || hashpart[2][1] < '0' || hashpart[2][1] > '9':
-			fmt.Fprintln(os.Stderr, "Abort: The cost (between the 2nd & 3rd '$') must be numeric and 04..31")
+			fmt.Fprintln(os.Stderr, "Abort: The cost (between the 2nd & 3rd '$') must be numeric and 04..31, invalid hash: "+hash)
 			os.Exit(9)
 		case (hashpart[2][0] == '0' && hashpart[2][1] < '4') || (hashpart[2][0] == '3' && hashpart[2][1] > '1'):
-			fmt.Fprintln(os.Stderr, "Abort: The cost (between the 2nd & 3rd '$') must be 04..31")
+			fmt.Fprintln(os.Stderr, "Abort: The cost (between the 2nd & 3rd '$') must be 04..31, invalid hash: "+hash)
 			os.Exit(10)
 		case len(hashpart[3]) != 53:
-			fmt.Fprintln(os.Stderr, "Abort: The salt & password hash (after the 3rd '$') must be 53 characters long")
+			fmt.Fprintln(os.Stderr, "Abort: The salt & password hash (after the 3rd '$') must be 53 characters long, invalid hash: "+hash)
 			os.Exit(11)
 		}
 	}
 	switch cmd {
 	case "COST":
+		if hash == "" {
+			showHelp("Hash needed to tell its cost")
+		}
 		fmt.Printf("%d\n", getCost(hash))
 	case "CHECK":
 		doCheck(getPassword(), []byte(hash))
 	case "HASH":
 		if cost < bcrypt.MinCost || cost > bcrypt.MaxCost {
-			showHelp("Argument for cost out of range")
+			showHelp("Argument for cost not 4..31, out of range: "+string(cost))
 		}
 		fmt.Println(getHash(getPassword(), cost))
 	}
