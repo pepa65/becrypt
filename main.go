@@ -14,12 +14,12 @@ import (
 )
 
 const (
-	version = "1.3.7"
+	version  = "1.3.8"
 	pwMaxLen = 72
 )
 
 var (
-	self = ""
+	self  = ""
 	quiet = false
 )
 
@@ -33,13 +33,13 @@ Usage:  ` + self + ` OPTION
         <hash> [-q|--quiet]      CHECK the password against bcrypt <hash>.
         [<cost>]                 Generate a HASH from the given password
                                  (optional <cost>: ` +
-    strconv.Itoa(bcrypt.MinCost) + ".." + strconv.Itoa(bcrypt.MaxCost) +
-    ", default: " + strconv.Itoa(bcrypt.DefaultCost) + `)
+		strconv.Itoa(bcrypt.MinCost) + ".." + strconv.Itoa(bcrypt.MaxCost) +
+		", default: " + strconv.Itoa(bcrypt.DefaultCost) + `)
 The password can be piped-in or prompted for. It's cut off after ` +
-    strconv.Itoa(pwMaxLen) + " characters."
+		strconv.Itoa(pwMaxLen) + " characters."
 	fmt.Fprintln(os.Stderr, helptxt)
 	if msg != "" {
-		fmt.Fprintln(os.Stderr, "Abort: " + msg)
+		fmt.Fprintln(os.Stderr, "Abort: "+msg)
 		os.Exit(2)
 	}
 	os.Exit(0)
@@ -55,7 +55,7 @@ func main() { // IO:self
 		}
 		if cmd == "COST" {
 			if hash != "" {
-				showHelp("Too many arguments for cost: "+arg)
+				showHelp("Too many arguments for cost: " + arg)
 			}
 			hash = arg
 			continue
@@ -66,7 +66,7 @@ func main() { // IO:self
 				continue
 			}
 			if hash != "" {
-				showHelp("Hash already given, too many arguments: "+arg)
+				showHelp("Hash already given, too many arguments: " + arg)
 			} else {
 				hash = arg
 				continue
@@ -91,7 +91,7 @@ func main() { // IO:self
 			}
 			cmd, hash = "CHECK", arg
 		} else {
-			showHelp("Too many arguments: "+arg)
+			showHelp("Too many arguments: " + arg)
 		}
 	}
 	if cmd == "" {
@@ -139,7 +139,7 @@ func main() { // IO:self
 		doCheck(getPassword(), []byte(hash))
 	case "HASH":
 		if cost < bcrypt.MinCost || cost > bcrypt.MaxCost {
-			showHelp("Argument for cost not 4..31, out of range: "+string(cost))
+			showHelp("Argument for cost not 4..31, out of range: " + fmt.Sprint(cost))
 		}
 		fmt.Println(getHash(getPassword(), cost))
 	}
@@ -178,7 +178,7 @@ func getHash(password []byte, cost int) string {
 
 func getPassword() []byte {
 	var password []byte
-	if ! term.IsTerminal(0) {
+	if !term.IsTerminal(0) {
 		password, _ = io.ReadAll(os.Stdin)
 	}
 	if len(password) == 0 {
@@ -187,7 +187,7 @@ func getPassword() []byte {
 		fmt.Fprintf(os.Stderr, "\r               \r")
 		password = []byte(pw)
 	}
-	if len(password) > 72 {
+	if len(password) > pwMaxLen {
 		password = password[:pwMaxLen]
 	}
 	return password
