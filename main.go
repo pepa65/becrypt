@@ -14,12 +14,13 @@ import (
 )
 
 const (
-	version = "1.2.6"
+	version = "1.3.6"
 	pwMaxLen = 72
 )
 
 var (
 	self = ""
+	quiet = false
 )
 
 func showHelp(msg string) { // I:self,version,pwMaxLen
@@ -59,6 +60,18 @@ func main() { // IO:self
 			hash = arg
 			continue
 		}
+		if cmd == "CHECK" {
+			if arg == "-q" || arg == "--quiet" {
+				quiet = true
+				continue
+			}
+			if hash != "" {
+				showHelp("Hash already given, too many arguments")
+			} else {
+				hash = arg
+				continue
+			}
+		}
 		if cmd == "" && (arg == "cost" || arg == "-c" || arg == "--cost") {
 			cmd = "COST"
 			continue
@@ -70,6 +83,10 @@ func main() { // IO:self
 			c, e := strconv.Atoi(arg)
 			if e == nil { // Integer: a hash command
 				cmd, cost = "HASH", c
+				continue
+			}
+			if arg == "-q" || arg == "--quiet" {
+				cmd, quiet = "CHECK", true
 				continue
 			}
 			cmd, hash = "CHECK", arg
@@ -85,31 +102,31 @@ func main() { // IO:self
 		switch true {
 		case len(hashpart) != 4:
 			fmt.Fprintln(os.Stderr, "Abort: Exactly 3 '$' in a bcrypt hash")
-			os.Exit(10)
+			os.Exit(3)
 		case len(hashpart[0]) > 0:
 			fmt.Fprintln(os.Stderr, "Abort: A proper bcrypt hash starts with '$'")
-			os.Exit(3)
+			os.Exit(4)
 		case len(hashpart[1]) == 0:
 			fmt.Fprintln(os.Stderr, "Abort: Missing crypt type (between the 1st & 2nd '$')")
-			os.Exit(4)
+			os.Exit(5)
 		case hashpart[1][:1] != "2":
 			fmt.Fprintln(os.Stderr, "Abort: The crypt type (between the 1st & 2nd '$') for bcrypt starts with '2'")
-			os.Exit(5)
+			os.Exit(6)
 		case len(hashpart[1]) > 2:
 			fmt.Fprintln(os.Stderr, "Abort: The crypt type (between the 1st & 2nd '$') is 1 or 2 characters long")
-			os.Exit(6)
+			os.Exit(7)
 		case len(hashpart[2]) != 2:
 			fmt.Fprintln(os.Stderr, "Abort: The cost (between the 2nd & 3rd '$') must be 2 characters long")
-			os.Exit(7)
+			os.Exit(8)
 		case hashpart[2][0] < '0' || hashpart[2][0] > '3' || hashpart[2][1] < '0' || hashpart[2][1] > '9':
 			fmt.Fprintln(os.Stderr, "Abort: The cost (between the 2nd & 3rd '$') must be numeric and 04..31")
-			os.Exit(8)
+			os.Exit(9)
 		case (hashpart[2][0] == '0' && hashpart[2][1] < '4') || (hashpart[2][0] == '3' && hashpart[2][1] > '1'):
 			fmt.Fprintln(os.Stderr, "Abort: The cost (between the 2nd & 3rd '$') must be 04..31")
-			os.Exit(9)
+			os.Exit(10)
 		case len(hashpart[3]) != 53:
 			fmt.Fprintln(os.Stderr, "Abort: The salt & password hash (after the 3rd '$') must be 53 characters long")
-			os.Exit(10)
+			os.Exit(11)
 		}
 	}
 	switch cmd {
@@ -129,17 +146,21 @@ func getCost(hash string) int {
 	cost, e := bcrypt.Cost([]byte(hash))
 	if e != nil {
 		fmt.Fprintln(os.Stderr, e)
-		os.Exit(11)
+		os.Exit(12)
 	}
 	return cost
 }
 
 func doCheck(password, hash []byte) {
 	if bcrypt.CompareHashAndPassword(hash, password) == nil {
-		fmt.Println("yes")
+		if !quiet {
+			fmt.Println("yes")
+		}
 	} else {
-		fmt.Println("no")
-		os.Exit(12)
+		if !quiet {
+			fmt.Println("no")
+		}
+		os.Exit(1)
 	}
 }
 
