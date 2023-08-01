@@ -1,6 +1,7 @@
 .PHONY: build
 build: clean
-	CGO_ENABLED=0 go build -o becrypt
+	CGO_ENABLED=0 go build -ldflags="-s -w" -o becrypt
+	strip becrypt
 
 .PHONY: clean
 clean:
