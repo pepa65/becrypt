@@ -8,11 +8,11 @@ building:
   script:
     - go get -u github.com/pepa65/becrypt
     - GOOS=linux GOARCH=amd64 go build -ldflags="-s -w"
+    - strip becrypt
     - GOOS=linux GOARCH=arm go build -ldflags="-s -w" -o becrypt_pi
     - GOOS=freebsd GOARCH=amd64 go build -ldflags="-s -w" -o becrypt_bsd
     - GOOS=darwin GOARCH=amd64 go build -ldflags="-s -w" -o becrypt_osx
     - GOOS=windows GOARCH=amd64 go build -ldflags="-s -w" -o becrypt.exe
-    - strip becrypt
   artifacts:
     name: becrypt
     paths:
