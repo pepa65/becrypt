@@ -5,7 +5,7 @@
 [![GoDoc](https://godoc.org/github.com/pepa65/becrypt?status.svg)](https://godoc.org/github.com/pepa65/becrypt)
 [![GitHub](https://img.shields.io/github/license/pepa65/becrypt.svg)](LICENSE)
 [![run-ci](https://github.com/pepa65/becrypt/actions/workflows/ci.yml/badge.svg)](https://github.com/pepa65/becrypt/actions/workflows/ci.yml) 
-* Version: 1.3.16
+* Version: 1.3.17
 * License: [MIT](LICENSE)
 * Repo: `github.com/pepa65/becrypt`
 * Modified interface from `github.com/shoenig/bcrypt-tool`:
@@ -15,7 +15,7 @@
 
 ## Usage
 ```
-becrypt v1.3.16 - Generate and check bcrypt hashes from a CLI
+becrypt v1.3.17 - Generate and check bcrypt hashes from a CLI
 Repo:   github.com/pepa65/becrypt
 Usage:  becrypt OPTION
     Options:
