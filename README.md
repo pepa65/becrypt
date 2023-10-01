@@ -1,11 +1,12 @@
-# becrypt
-**Generate and check bcrypt hashes from a CLI**
-
 [![Go Report Card](https://goreportcard.com/badge/github.com/pepa65/becrypt)](https://goreportcard.com/report/github.com/pepa65/becrypt)
 [![GoDoc](https://godoc.org/github.com/pepa65/becrypt?status.svg)](https://godoc.org/github.com/pepa65/becrypt)
 [![GitHub](https://img.shields.io/github/license/pepa65/becrypt.svg)](LICENSE)
 [![run-ci](https://github.com/pepa65/becrypt/actions/workflows/ci.yml/badge.svg)](https://github.com/pepa65/becrypt/actions/workflows/ci.yml) 
-* Version: 1.3.17
+
+# becrypt
+**Generate and check bcrypt hashes from a CLI**
+
+* Version: 1.3.18
 * License: [MIT](LICENSE)
 * Repo: `github.com/pepa65/becrypt`
 * Modified interface from `github.com/shoenig/bcrypt-tool`:
@@ -15,7 +16,7 @@
 
 ## Usage
 ```
-becrypt v1.3.17 - Generate and check bcrypt hashes from a CLI
+becrypt v1.3.18 - Generate and check bcrypt hashes from a CLI
 Repo:   github.com/pepa65/becrypt
 Usage:  becrypt OPTION
     Options:
