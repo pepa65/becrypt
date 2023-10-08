@@ -1,6 +1,7 @@
 upx:
   - enabled: true
     compress: best
+    goos: [linux]
 
 archives:
 - format: binary
