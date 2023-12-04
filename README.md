@@ -6,7 +6,7 @@
 # becrypt
 **Generate and check bcrypt hashes from a CLI**
 
-* Version: 1.3.21
+* Version: 1.3.22
 * License: [MIT](LICENSE)
 * Repo: `github.com/pepa65/becrypt`
 * Modified interface from `github.com/shoenig/bcrypt-tool`:
@@ -16,7 +16,7 @@
 
 ## Usage
 ```
-becrypt v1.3.21 - Generate and check bcrypt hashes from a CLI
+becrypt v1.3.22 - Generate and check bcrypt hashes from a CLI
 Repo:   github.com/pepa65/becrypt
 Usage:  becrypt OPTION
     Options:
