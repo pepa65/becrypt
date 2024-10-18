@@ -6,7 +6,7 @@
 # becrypt
 **Generate and check bcrypt hashes from a CLI**
 
-* Version: 1.3.27
+* Version: 1.4.0
 * License: [MIT](LICENSE)
 * Repo: `github.com/pepa65/becrypt`
 * Modified interface from `github.com/shoenig/bcrypt-tool`:
@@ -16,7 +16,7 @@
 
 ## Usage
 ```
-becrypt v1.3.27 - Generate and check bcrypt hashes from a CLI
+becrypt v1.4.0 - Generate and check bcrypt hashes from a CLI
 Repo:   github.com/pepa65/becrypt
 Usage:  becrypt OPTION
     Options:
@@ -63,7 +63,7 @@ becrypt '$2a$10$nWFwjoFo4zhyVosdYMb6XOxZqlVB9Bk0TzOvmuo16oIwMZJXkpanW'
 printf 'p4ssw0rd' |becrypt '$2a$10$nWFwjoFo4zhyVosdYMb6XOxZqlVB9Bk0TzOvmuo16oIwMZJXkpanW'
 ```
 
-The result of a CHECK command is a plaintext 'yes' or 'no' on stdout,
+The result of a CHECK command is a plaintext 'Y' or 'N' on stdout,
 with corresponding returncodes 0 and 1.
 If the `-q` or `--quiet` flag is given, no stdout is produced, only the returncode.
 

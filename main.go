@@ -14,7 +14,7 @@ import (
 )
 
 const (
-	version  = "1.3.27"
+	version  = "1.4.0"
 	pwMaxLen = 72
 )
 
@@ -157,11 +157,11 @@ func getCost(hash string) int {
 func doCheck(password, hash []byte) {
 	if bcrypt.CompareHashAndPassword(hash, password) == nil {
 		if !quiet {
-			fmt.Println("yes")
+			fmt.Println("Y")
 		}
 	} else {
 		if !quiet {
-			fmt.Println("no")
+			fmt.Println("N")
 		}
 		os.Exit(1)
 	}
