@@ -14,7 +14,7 @@ import (
 )
 
 const (
-	version  = "1.4.0"
+	version  = "1.4.1"
 	pwMaxLen = 72
 )
 
@@ -30,13 +30,15 @@ Usage:  ` + self + ` OPTION
     Options:
         help|-h|--help           Display this HELP text.
         cost|-c|--cost <hash>    Display the COST of bcrypt <hash>.
-        <hash> [-q|--quiet]      CHECK the password against bcrypt <hash>.
-        [<cost>]                 Generate a HASH from the given password
-                                 (optional <cost>: ` +
+        <hash> [-q|--quiet]      CHECK the password(^) against bcrypt <hash>.
+        [<cost>]                 Generate a HASH from the given password(^).
+                                 (Optional <cost>: ` +
 		strconv.Itoa(bcrypt.MinCost) + ".." + strconv.Itoa(bcrypt.MaxCost) +
-		", default: " + strconv.Itoa(bcrypt.DefaultCost) + `)
-The password can be piped-in or prompted for. It's cut off after ` +
-		strconv.Itoa(pwMaxLen) + " characters."
+		", default: " + strconv.Itoa(bcrypt.DefaultCost) + `.)
+(^) Password: can be piped-in or prompted for, it gets cut off after ` +
+		strconv.Itoa(pwMaxLen) + ` bytes.
+    Longer ones are accepted without warning, using only the first ` +
+		strconv.Itoa(pwMaxLen) + " bytes!";
 	fmt.Fprintln(os.Stderr, helptxt)
 	if msg != "" {
 		fmt.Fprintln(os.Stderr, "Abort: "+msg)
