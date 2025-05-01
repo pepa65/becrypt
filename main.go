@@ -14,8 +14,9 @@ import (
 )
 
 const (
-	version  = "1.4.4"
+	version  = "1.5.0"
 	pwMaxLen = 72
+	nl = 10
 )
 
 var (
@@ -35,10 +36,9 @@ Usage:  ` + self + ` OPTION
                                  (Optional <cost>: ` +
 		strconv.Itoa(bcrypt.MinCost) + ".." + strconv.Itoa(bcrypt.MaxCost) +
 		", default: " + strconv.Itoa(bcrypt.DefaultCost) + `.)
-(^) Password: can be piped-in or prompted for, it gets cut off after ` +
-		strconv.Itoa(pwMaxLen) + ` bytes.
-    Longer ones are accepted without warning, using only the first ` +
-		strconv.Itoa(pwMaxLen) + " bytes!";
+(^) Password: can piped-in or prompted for, a final newline will get cut off.
+    Passwords longer than ` +
+		strconv.Itoa(pwMaxLen) + " bytes are accepted & get cut off without warning."
 	fmt.Fprintln(os.Stderr, helptxt)
 	if msg != "" {
 		fmt.Fprintln(os.Stderr, "Abort: "+msg)
@@ -159,11 +159,11 @@ func getCost(hash string) int {
 func doCheck(password, hash []byte) {
 	if bcrypt.CompareHashAndPassword(hash, password) == nil {
 		if !quiet {
-			fmt.Println("Y")
+			fmt.Println("true")
 		}
 	} else {
 		if !quiet {
-			fmt.Println("N")
+			fmt.Println("false")
 		}
 		os.Exit(1)
 	}
@@ -182,15 +182,15 @@ func getPassword() []byte {
 	var password []byte
 	if !term.IsTerminal(0) {
 		password, _ = io.ReadAll(os.Stdin)
-	}
-	if len(password) == 0 {
+		l := len(password)
+		if l > 0 && password[l-1] == nl {
+			password = password[:l-1]
+		}
+	} else {
 		fmt.Fprintf(os.Stderr, "Enter password: ")
 		pw, _ := term.ReadPassword(0)
 		fmt.Fprintf(os.Stderr, "\r               \r")
 		password = []byte(pw)
 	}
-	if len(password) > pwMaxLen {
-		password = password[:pwMaxLen]
-	}
-	return password
+	return password[:pwMaxLen]
 }
