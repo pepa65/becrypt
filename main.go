@@ -14,7 +14,7 @@ import (
 )
 
 const (
-	version  = "1.5.3"
+	version  = "1.5.4"
 	pwMaxLen = 72
 	nl = 10
 )
@@ -192,5 +192,8 @@ func getPassword() []byte {
 		fmt.Fprintf(os.Stderr, "\r               \r")
 		password = []byte(pw)
 	}
-	return password[:pwMaxLen]
+	if len(password) > 72 {
+		password = password[:pwMaxLen]
+	}
+	return password
 }
