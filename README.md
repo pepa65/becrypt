@@ -6,7 +6,7 @@
 # becrypt
 **Generate and check bcrypt hashes from a CLI**
 
-* Version: 1.5.14
+* Version: 1.5.15
 * License: [MIT](LICENSE)
 * Repo: `github.com/pepa65/becrypt`
 * Modified interface from `github.com/shoenig/bcrypt-tool`:
@@ -17,7 +17,7 @@
 
 ## Usage
 ```
-becrypt v1.5.14 - Generate and check bcrypt hashes from the CLI
+becrypt v1.5.15 - Generate and check bcrypt hashes from the CLI
 Repo:   github.com/pepa65/becrypt
 Usage:  becrypt OPTION
     Options:
@@ -25,7 +25,7 @@ Usage:  becrypt OPTION
         cost|-c|--cost <hash>    Display the COST of bcrypt <hash>
         <hash> [-q|--quiet]      CHECK the password(^) against bcrypt <hash>
         [<cost>]                 Generate a HASH from the given password(^)
-                                 (Optional <cost>: 4..31 [default: 10]
+                                 (Optional <cost>: 4..31 [default: 10])
 (^) Password can piped-in or prompted for (final newline will get cut off)
     Passwords longer than 72 are accepted (but get cut off without warning)
 ```

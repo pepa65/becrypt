@@ -14,7 +14,7 @@ import (
 )
 
 const (
-	version  = "1.5.14"
+	version  = "1.5.15"
 	pwMaxLen = 72
 	nl = 10
 )
@@ -35,7 +35,7 @@ Usage:  ` + self + ` OPTION
         [<cost>]                 Generate a HASH from the given password(^)
                                  (Optional <cost>: ` +
 		strconv.Itoa(bcrypt.MinCost) + ".." + strconv.Itoa(bcrypt.MaxCost) +
-		" [default: " + strconv.Itoa(bcrypt.DefaultCost) + `]
+		" [default: " + strconv.Itoa(bcrypt.DefaultCost) + `])
 (^) Password can piped-in or prompted for (final newline will get cut off)
     Passwords longer than ` +
 		strconv.Itoa(pwMaxLen) + " are accepted (but get cut off without warning)"
