@@ -15,7 +15,7 @@ import (
 )
 
 const (
-	version  = "1.6.0"
+	version  = "1.6.1"
 	pwMaxLen = 72
 	nl = 10
 )
@@ -182,7 +182,7 @@ func getHash(password []byte, cost int) string {
 func getPassword() []byte {
 	var password []byte
 	if !term.IsTerminal(0) {
-		buf := make([]byte, pwMaxLen+2)
+		buf := make([]byte, pwMaxLen)
 		n, err := io.ReadFull(os.Stdin, buf)
 		if err == io.ErrUnexpectedEOF {
 			buf = buf[:n]
