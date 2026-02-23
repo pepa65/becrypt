@@ -5,6 +5,7 @@ package main
 import (
 	"bytes"
 	"fmt"
+	"io"
 	"os"
 	"strconv"
 	"strings"
@@ -14,7 +15,7 @@ import (
 )
 
 const (
-	version  = "1.5.16"
+	version  = "1.6.0"
 	pwMaxLen = 72
 	nl = 10
 )
@@ -179,10 +180,16 @@ func getHash(password []byte, cost int) string {
 }
 
 func getPassword() []byte {
-	var password = make([]byte, pwMaxLen+2)
+	var password []byte
 	if !term.IsTerminal(0) {
-		l, _ := os.Stdin.Read(password)
-		password = bytes.TrimRight(password[:l], "\r\n")
+		buf := make([]byte, pwMaxLen+2)
+		n, err := io.ReadFull(os.Stdin, buf)
+		if err == io.ErrUnexpectedEOF {
+			buf = buf[:n]
+		} else if err != nil {
+			buf = buf[:0]
+		}
+		password = bytes.TrimRight(buf, "\r\n")
 	} else {
 		fmt.Fprintf(os.Stderr, "Enter password: ")
 		password, _ = term.ReadPassword(0)
