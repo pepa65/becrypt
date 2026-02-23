@@ -14,7 +14,7 @@ import (
 )
 
 const (
-	version  = "1.5.13"
+	version  = "1.5.14"
 	pwMaxLen = 72
 	nl = 10
 )
@@ -29,16 +29,16 @@ func showHelp(msg string) { // I:self,version,pwMaxLen
 Repo:   github.com/pepa65/becrypt
 Usage:  ` + self + ` OPTION
     Options:
-        help|-h|--help           Display this HELP text.
-        cost|-c|--cost <hash>    Display the COST of bcrypt <hash>.
-        <hash> [-q|--quiet]      CHECK the password(^) against bcrypt <hash>.
-        [<cost>]                 Generate a HASH from the given password(^).
+        help|-h|--help           Display this HELP text
+        cost|-c|--cost <hash>    Display the COST of bcrypt <hash>
+        <hash> [-q|--quiet]      CHECK the password(^) against bcrypt <hash>
+        [<cost>]                 Generate a HASH from the given password(^)
                                  (Optional <cost>: ` +
 		strconv.Itoa(bcrypt.MinCost) + ".." + strconv.Itoa(bcrypt.MaxCost) +
-		", default: " + strconv.Itoa(bcrypt.DefaultCost) + `.)
-(^) Password: can piped-in or prompted for, a final newline will get cut off.
+		" [default: " + strconv.Itoa(bcrypt.DefaultCost) + `]
+(^) Password can piped-in or prompted for (final newline will get cut off)
     Passwords longer than ` +
-		strconv.Itoa(pwMaxLen) + " bytes are accepted & get cut off without warning."
+		strconv.Itoa(pwMaxLen) + " are accepted (but get cut off without warning)"
 	fmt.Fprintln(os.Stderr, helptxt)
 	if msg != "" {
 		fmt.Fprintln(os.Stderr, "Abort: "+msg)

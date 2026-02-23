@@ -6,28 +6,28 @@
 # becrypt
 **Generate and check bcrypt hashes from a CLI**
 
-* Version: 1.5.4
+* Version: 1.5.14
 * License: [MIT](LICENSE)
 * Repo: `github.com/pepa65/becrypt`
 * Modified interface from `github.com/shoenig/bcrypt-tool`:
   - Shorter & simpler, and only a command for the least used option.
   - No password on the commandline (it either gets piped-in or is asked for interactively).
-    Any final newline gets cut off, so `echo 'pw' |becrypt` and `becrypt <<<'pw' can be used.
+    Any final newline gets cut off, so `echo 'pw' |becrypt` and `becrypt <<<'pw'` can be used.
   - Functionally compatible (both use `golang.org/x/crypto/bcrypt` under the hood).
 
 ## Usage
 ```
-becrypt v1.5.4 - Generate and check bcrypt hashes from a CLI
+becrypt v1.5.14 - Generate and check bcrypt hashes from the CLI
 Repo:   github.com/pepa65/becrypt
 Usage:  becrypt OPTION
     Options:
-        help|-h|--help           Display this HELP text.
-        cost|-c|--cost <hash>    Display the COST of bcrypt <hash>.
-        <hash> [-q|--quiet]      CHECK the password(^) against bcrypt <hash>.
-        [<cost>]                 Generate a HASH from the given password(^).
-                                 (Optional <cost>: 4..31, default: 10.)
-(^) Password: can piped-in or prompted for, a final newline will get cut off.
-    Passwords longer than 72 bytes are accepted & get cut off without warning.
+        help|-h|--help           Display this HELP text
+        cost|-c|--cost <hash>    Display the COST of bcrypt <hash>
+        <hash> [-q|--quiet]      CHECK the password(^) against bcrypt <hash>
+        [<cost>]                 Generate a HASH from the given password(^)
+                                 (Optional <cost>: 4..31 [default: 10]
+(^) Password can piped-in or prompted for (final newline will get cut off)
+    Passwords longer than 72 are accepted (but get cut off without warning)
 ```
 
 ## Install from Releases
