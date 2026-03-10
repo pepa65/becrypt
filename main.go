@@ -17,12 +17,13 @@ import (
 const (
 	version  = "1.6.1"
 	pwMaxLen = 72
-	nl = 10
+	nl       = 10
 )
 
 var (
-	self  = ""
-	quiet = false
+	self    = ""
+	quiet   = false
+	newLine = true
 )
 
 func showHelp(msg string) { // I:self,version,pwMaxLen
@@ -30,11 +31,11 @@ func showHelp(msg string) { // I:self,version,pwMaxLen
 Repo:   github.com/pepa65/becrypt
 Usage:  ` + self + ` OPTION
     Options:
-        help|-h|--help           Display this HELP text
-        cost|-c|--cost <hash>    Display the COST of bcrypt <hash>
-        <hash> [-q|--quiet]      CHECK the password(^) against bcrypt <hash>
-        [<cost>]                 Generate a HASH from the given password(^)
-                                 (Optional <cost>: ` +
+        help|-h|--help                    Display this HELP text
+        cost|-c|--cost <hash>             Display the COST of bcrypt <hash>
+        <hash> [-q|--quiet] [-n|--no-nl]  CHECK the password(^) against bcrypt <hash>
+        [<cost>]                          Generate a HASH from the given password(^)
+                                          (Optional <cost>: ` +
 		strconv.Itoa(bcrypt.MinCost) + ".." + strconv.Itoa(bcrypt.MaxCost) +
 		" [default: " + strconv.Itoa(bcrypt.DefaultCost) + `])
 (^) Password can piped-in or prompted for (final newline will get cut off)
@@ -81,6 +82,10 @@ func main() { // IO:self
 		}
 		if arg == "help" || arg == "-h" || arg == "--help" {
 			showHelp("")
+		}
+		if arg == "-n" || arg == "--no-nl" {
+			newLine = false
+			continue
 		}
 		if cmd == "" {
 			c, e := strconv.Atoi(arg)
@@ -144,7 +149,12 @@ func main() { // IO:self
 		if cost < bcrypt.MinCost || cost > bcrypt.MaxCost {
 			showHelp("Argument for cost not 4..31, out of range: " + fmt.Sprint(cost))
 		}
-		fmt.Println(getHash(getPassword(), cost))
+		hash := getHash(getPassword(), cost)
+		if newLine {
+			fmt.Println(hash)
+		} else {
+			fmt.Print(hash)
+		}
 	}
 }
 
