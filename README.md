@@ -76,11 +76,14 @@ becrypt
 echo 'p4ssw0rd' |becrypt
 
 becrypt <<<'p4ssw0rd'
+
+# No newline after the hash output
+becrypt --no-newline
 ```
 
 The result of a HASH command is the hash on stdout, with a returncode of 0.
 
-To omit the trailing newline, provide arugment `-n` or `--no-nl`.
+To omit the trailing newline, use flag `-n`/`--no-newline`.
 
 ### HASH: Generate Hash from a Password with given Cost
 ```bash
