@@ -33,13 +33,7 @@ Usage:  becrypt OPTION
 ## Install from Releases
 
 * The `becrypt` tool is available from the [Releases](https://github.com/pepa65/becrypt/releases) page.
-* Pre-compiled for:
-  - OSX amd64 arm64
-  - Linux amd64 386 arm64
-  - FreeBSD amd64 386 arm64
-  - Openbsd amd64 386 arm64
-  - Windows amd64 386 arm64
-  - Plan9 amd64 386
+* Pre-compiled for loads of architectures on the release page.
 
 ## Build from source with Go
 ```bash
