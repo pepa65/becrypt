@@ -15,7 +15,7 @@ import (
 )
 
 const (
-	version  = "1.7.3"
+	version  = "1.7.4"
 	pwMaxLen = 72
 	nl       = 10
 )
