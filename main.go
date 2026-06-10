@@ -15,7 +15,7 @@ import (
 )
 
 const (
-	version  = "1.7.5"
+	version  = "1.8.0"
 	pwMaxLen = 72
 	nl       = 10
 )
@@ -32,6 +32,7 @@ Repo:   github.com/pepa65/becrypt
 Usage:  ` + self + ` OPTION
     Options:
         help|-h|--help              Display this help text
+        version|-V|--version        Display version
         cost|-c|--cost HASH         Display the COST of bcrypt HASH
         HASH [-q|--quiet]           CHECK the password(^) against bcrypt HASH
         [COST] [-n|--no-newline]    Generate a HASH from the given password(^)
@@ -46,7 +47,6 @@ Usage:  ` + self + ` OPTION
 		fmt.Fprintln(os.Stderr, "Abort: "+msg)
 		os.Exit(2)
 	}
-	os.Exit(0)
 }
 
 func main() { // IO:self
@@ -82,6 +82,11 @@ func main() { // IO:self
 		}
 		if arg == "help" || arg == "-h" || arg == "--help" {
 			showHelp("")
+			return
+		}
+		if arg == "version" || arg == "-V" || arg == "--version" {
+			fmt.Println(self + " v" + version)
+			return
 		}
 		if arg == "-n" || arg == "--no-newline" {
 			newLine = false
